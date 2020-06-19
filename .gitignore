@@ -1,0 +1,6 @@
+# GHDL simulation directory
+**/simul
+.vagrant/
+
+# Vivado output files and directories
+synth/floating-point.*
