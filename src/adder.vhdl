@@ -3,7 +3,7 @@ library IEEE;
     use IEEE.numeric_std.all;
 
 entity adder is
-	port map(
+	port(
 		a : in integer;
 		b : in integer;
 		res : out integer
