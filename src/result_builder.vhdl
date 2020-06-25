@@ -3,12 +3,12 @@ library IEEE;
     use IEEE.numeric_std.all;
 
 entity result_builder is
-	generic map(
+	generic(
 		word_size: natural := 10;
 		exp_size: natural := 4;
 		mant_size : natural := 5
-	)
-	port map(
+	);
+	port(
 		sign : std_logic;
 		mant : std_logic_vector(mant_size - 1 downto 0);
 		exp : integer;

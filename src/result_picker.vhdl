@@ -3,10 +3,10 @@ library IEEE;
     use IEEE.numeric_std.all;
 
 entity result_picker is
-	generic map(
+	generic(
 		mant_size: natural := 5;
 	);
-	port map(
+	port(
 		mant: std_logic_vector(2 * mant_size - 1 downto 0);
 		exp: integer;
 		mant_res: std_logic_vector(mant_size - 1 downto 0);
@@ -16,7 +16,7 @@ end entity result_picker;
 
 architecture result_picker_arq of result_picker is
 
-	constant MSB: natural := 2 * ((mant_size) + 1) - 1;
+	constant MSB: natural := 2 * mant_size  - 1;
 
 	constant RES_CASE_1_BEGIN: natural := MSB - 1;
 	constant RES_CASE_1_END: natural := RES_CASE_1_BEGIN - mant_size;
