@@ -4,7 +4,7 @@ library IEEE;
 
 entity result_picker is
 	generic(
-		mant_size: natural := 5;
+		mant_size: natural := 5
 	);
 	port(
 		mant: std_logic_vector(2 * mant_size - 1 downto 0);
