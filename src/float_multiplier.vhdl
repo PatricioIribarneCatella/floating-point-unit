@@ -29,7 +29,7 @@ architecture float_multiplier_arq of float_multiplier is
 
 	signal exp_aux : integer;
 	signal exp_res_aux : integer;
-	signal mant_res_aux : std_logic_vector(2 * MANT_SIZE - 1 downto 0);
+	signal mant_res_aux : std_logic_vector(2 * MANT_SIZE + 1 downto 0);
 	signal mant_aux : std_logic_vector(MANT_SIZE - 1 downto 0);
 
 	signal decoded_exp_a : std_logic_vector(exp_size - 1 downto 0);
