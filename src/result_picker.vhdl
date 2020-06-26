@@ -7,10 +7,10 @@ entity result_picker is
 		mant_size: natural := 5
 	);
 	port(
-		mant: std_logic_vector(2 * mant_size + 1 downto 0);
-		exp: integer;
-		mant_res: std_logic_vector(mant_size - 1 downto 0);
-		exp_res: integer
+		mant : in std_logic_vector(2 * mant_size + 1 downto 0);
+		exp : in integer;
+		mant_res : out std_logic_vector(mant_size - 1 downto 0);
+		exp_res : out integer
 	);
 end entity result_picker;
 
@@ -19,10 +19,10 @@ architecture result_picker_arq of result_picker is
 	constant MSB: natural := 2 * mant_size + 1;
 
 	constant RES_CASE_1_BEGIN: natural := MSB - 1;
-	constant RES_CASE_1_END: natural := RES_CASE_1_BEGIN - mant_size;
+	constant RES_CASE_1_END: natural := RES_CASE_1_BEGIN - mant_size + 1;
 
 	constant RES_CASE_2_BEGIN: natural := MSB - 2;
-	constant RES_CASE_2_END: natural := RES_CASE_2_BEGIN - mant_size;
+	constant RES_CASE_2_END: natural := RES_CASE_2_BEGIN - mant_size + 1;
 
 	signal sel: std_logic;
 
