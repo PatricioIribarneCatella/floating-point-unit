@@ -9,10 +9,10 @@ entity result_builder is
 		mant_size : natural := 5
 	);
 	port(
-		sign : std_logic;
-		mant : std_logic_vector(mant_size - 1 downto 0);
-		exp : integer;
-		res : std_logic_vector(word_size - 1 downto 0)
+		sign : in std_logic;
+		mant : in std_logic_vector(mant_size - 1 downto 0);
+		exp : in integer;
+		res : out std_logic_vector(word_size - 1 downto 0)
 	);
 end entity result_builder;
 
@@ -28,7 +28,7 @@ architecture result_builder_arq of result_builder is
 						:= (others => '1');
 
 	constant ZERO_EXP : std_logic_vector(exp_size - 1 downto 0)
-						:= std_logic_vector(to_unsigned(MIN_EXP - 1, exp_size));
+						:= (others => '0');
 	constant ZERO_MANT : std_logic_vector(mant_size - 1 downto 0)
 						:= (others => '0');
 begin
