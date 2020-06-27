@@ -23,8 +23,11 @@ architecture result_builder_tb_arq of result_builder_tb is
 
 begin
 
-	sign_aux <= '1' after 100 ns, '0' after 200 ns;
-	exp_aux <= BIAS after 50 ns, (BIAS + 1) after 100 ns;
+	sign_aux <= '1' after 100 ns, '0' after 200 ns, '1' after 300 ns;
+	exp_aux <= BIAS after 50 ns,
+			   (BIAS + 1) after 100 ns,
+			   -(BIAS - 1) after 150 ns,
+			   -(BIAS - 1) - 1 after 200 ns;
 
 	DUT: entity work.result_builder
 		generic map(
