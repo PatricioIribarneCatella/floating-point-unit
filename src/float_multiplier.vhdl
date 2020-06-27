@@ -20,34 +20,44 @@ architecture float_multiplier_arq of float_multiplier is
 
 	-- exponent
 	constant EXP_BEGIN : natural := word_size - 2;
-	constant EXP_END: natural := EXP_BEGIN + exp_size;
+	constant EXP_END: natural := EXP_BEGIN - exp_size + 1;
 
-	-- mantisa
+	-- fraction part
 	constant MANT_BEGIN : natural := EXP_END - 1;
 	constant MANT_END : natural := 0;
-	constant MANT_SIZE : natural := MANT_BEGIN - MANT_END;
+	constant MANT_SIZE : natural := word_size - exp_size - 1;
 
+	signal exp : integer;
 	signal exp_aux : integer;
 	signal exp_res_aux : integer;
-	signal mant_res_aux : std_logic_vector(2 * MANT_SIZE + 1 downto 0);
+
+	signal mant : std_logic_vector(MANT_SIZE - 1 downto 0);
 	signal mant_aux : std_logic_vector(MANT_SIZE - 1 downto 0);
+	signal mant_res_aux : std_logic_vector(2 * MANT_SIZE + 1 downto 0);
 
-	signal decoded_exp_a : std_logic_vector(exp_size - 1 downto 0);
-	signal decoded_exp_b : std_logic_vector(exp_size - 1 downto 0);
+	signal decoded_exp_a : integer;
+	signal decoded_exp_b : integer;
 
+	signal significand_a : std_logic_vector(MANT_SIZE downto 0);
+	signal significand_b : std_logic_vector(MANT_SIZE downto 0);
+
+	signal sign : std_logic;
 	signal sign_aux : std_logic;
 
 begin
 
 	sign_aux <= A(word_size - 1) xor B(word_size - 1);
 
-	decoded_exp_a <= unsigned(A(EXP_BEGIN downto EXP_END)) - BIAS;
-	decoded_exp_b <= unsigned(B(EXP_BEGIN downto EXP_END)) - BIAS;
+	decoded_exp_a <= to_integer(unsigned(A(EXP_BEGIN downto EXP_END))) - BIAS;
+	decoded_exp_b <= to_integer(unsigned(B(EXP_BEGIN downto EXP_END))) - BIAS;
+
+	significand_a <= '1' & A(MANT_BEGIN downto MANT_END);
+	significand_b <= '1' & B(MANT_BEGIN downto MANT_END);
 
 	ADDER: entity work.adder
 		port map(
-			a => to_integer(decoded_exp_a),
-			b => to_integer(decoded_exp_b),
+			a => decoded_exp_a,
+			b => decoded_exp_b,
 			res => exp_res_aux
 		);
 
@@ -56,8 +66,8 @@ begin
 			mant_size => MANT_SIZE
 		)
 		port map(
-			a => '1' & A(MANT_BEGIN downto MANT_END),
-			b => '1' & B(MANT_BEGIN downto MANT_END),
+			a => significand_a,
+			b => significand_b,
 			res => mant_res_aux
 		);
 
@@ -74,15 +84,18 @@ begin
 
 	RESULT_BUILDER: entity work.result_builder
 		generic map(
-			word_size => word_size,
 			exp_size => exp_size,
 			mant_size => MANT_SIZE
 		)
 		port map(
 			sign => sign_aux,
-			mant => mant_aux,
-			exp => exp_aux,
-			res => S
+			exp_in => exp_aux,
+			mant_in => mant_aux,
+			sign_out => sign,
+			exp_out => exp,
+			mant_out => mant
 		);
+
+	S <= sign & std_logic_vector(to_unsigned(exp, exp_size)) & mant;
 
 end architecture float_multiplier_arq;
