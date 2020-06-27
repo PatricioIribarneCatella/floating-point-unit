@@ -9,11 +9,11 @@ entity result_builder is
 	);
 	port(
 		sign : in std_logic;
-		mant_in : in std_logic_vector(mant_size - 1 downto 0);
 		exp_in : in integer;
+		mant_in : in std_logic_vector(mant_size - 1 downto 0);
 		sign_out : out std_logic;
-		mant_out : out std_logic_vector(mant_size - 1 downto 0);
-		exp_out : out integer
+		exp_out : out integer;
+		mant_out : out std_logic_vector(mant_size - 1 downto 0)
 	);
 end entity result_builder;
 

@@ -13,8 +13,8 @@ architecture adder_tb_arq of adder_tb is
 
 begin
 
-	a_aux <= 2 after 200 ns, 3 after 300 ns, 4 after 400 ns;
-	b_aux <= 2 after 200 ns, 4 after 300 ns, 5 after 400 ns;
+	a_aux <= 2 after 200 ns, 31 after 300 ns, 4 after 400 ns;
+	b_aux <= 2 after 200 ns, -1 after 300 ns, 5 after 400 ns;
 
 	DUT: entity work.adder
 		port map(
