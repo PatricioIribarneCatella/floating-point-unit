@@ -11,16 +11,20 @@ architecture result_builder_tb_arq of result_builder_tb is
 	constant exp_size_tb : natural := 4;
 	constant mant_size_tb : natural := 5;
 
+	constant BIAS : natural := 2**(exp_size_tb - 1) - 1;
+
 	signal sign_aux : std_logic := '0';
 	signal mant_aux : std_logic_vector(mant_size_tb - 1 downto 0)
 						:= "10000";
+
 	signal exp_aux : integer := 4;
 
 	signal res_aux : std_logic_vector(word_size_tb - 1 downto 0);
 
 begin
 
-	sign_aux <= '0' after 100 ns, '1' after 200 ns;
+	sign_aux <= '1' after 100 ns, '0' after 200 ns;
+	exp_aux <= BIAS after 50 ns, (BIAS + 1) after 100 ns;
 
 	DUT: entity work.result_builder
 		generic map(
