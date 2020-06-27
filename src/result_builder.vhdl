@@ -5,15 +5,14 @@ library IEEE;
 entity result_builder is
 	generic(
 		exp_size: natural := 4;
-		mant_size : natural := 5
+		mant_size : natural := 5;
+		word_size : natural := 10
 	);
 	port(
 		sign : in std_logic;
 		exp_in : in integer;
 		mant_in : in std_logic_vector(mant_size - 1 downto 0);
-		sign_out : out std_logic;
-		exp_out : out integer;
-		mant_out : out std_logic_vector(mant_size - 1 downto 0)
+		res : out std_logic_vector(word_size - 1 downto 0)
 	);
 end entity result_builder;
 
@@ -23,31 +22,28 @@ architecture result_builder_arq of result_builder is
 	constant MAX_EXP : integer := BIAS;
 	constant MIN_EXP : integer := -(BIAS - 1);
 
-	constant SAT_EXP : integer := MAX_EXP;
+	constant SAT_EXP : std_logic_vector(exp_size - 1 downto 0)
+						:= std_logic_vector(to_unsigned(MAX_EXP, exp_size));
 	constant SAT_MANT : std_logic_vector(mant_size - 1 downto 0)
 						:= (others => '1');
 
-	constant ZERO_EXP : integer := 0;
+	constant ZERO_EXP : std_logic_vector(exp_size - 1 downto 0)
+						:= (others => '0');
 	constant ZERO_MANT : std_logic_vector(mant_size - 1 downto 0)
 						:= (others => '0');
 begin
 
 	builder: process (sign, mant_in, exp_in)
 	begin
-		sign_out <= sign;
-
 		if exp_in > MAX_EXP then
 			-- saturation reached
-			exp_out <= SAT_EXP;
-			mant_out <= SAT_MANT;
+			res <= sign & SAT_EXP & SAT_MANT;
 		elsif exp_in < MIN_EXP then
 			-- zero reached
-			exp_out <= ZERO_EXP;
-			mant_out <= ZERO_MANT;
+			res <= sign & ZERO_EXP & ZERO_MANT;
 		else
 			-- the result its OK
-			exp_out <= exp_in + BIAS;
-			mant_out <= mant_in;
+			res <= sign & std_logic_vector(to_unsigned(exp_in + BIAS, exp_size)) & mant_in;
 		end if;
 	end process;
 

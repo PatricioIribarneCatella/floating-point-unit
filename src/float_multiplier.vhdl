@@ -27,11 +27,9 @@ architecture float_multiplier_arq of float_multiplier is
 	constant MANT_END : natural := 0;
 	constant MANT_SIZE : natural := word_size - exp_size - 1;
 
-	signal exp : integer := 0;
 	signal exp_aux : integer;
 	signal exp_res_aux : integer;
 
-	signal mant : std_logic_vector(MANT_SIZE - 1 downto 0);
 	signal mant_aux : std_logic_vector(MANT_SIZE - 1 downto 0);
 	signal mant_res_aux : std_logic_vector(2 * MANT_SIZE + 1 downto 0);
 
@@ -53,8 +51,6 @@ begin
 
 	significand_a <= '1' & A(MANT_BEGIN downto MANT_END);
 	significand_b <= '1' & B(MANT_BEGIN downto MANT_END);
-
-	S <= sign & std_logic_vector(to_signed(exp, exp_size)) & mant;
 
 	ADDER: entity work.adder
 		port map(
@@ -87,15 +83,14 @@ begin
 	RESULT_BUILDER: entity work.result_builder
 		generic map(
 			exp_size => exp_size,
-			mant_size => MANT_SIZE
+			mant_size => MANT_SIZE,
+			word_size => word_size
 		)
 		port map(
 			sign => sign_aux,
 			exp_in => exp_aux,
 			mant_in => mant_aux,
-			sign_out => sign,
-			exp_out => exp,
-			mant_out => mant
+			res => S
 		);
 
 end architecture float_multiplier_arq;

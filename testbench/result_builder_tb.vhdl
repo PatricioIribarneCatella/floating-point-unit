@@ -9,6 +9,7 @@ architecture result_builder_tb_arq of result_builder_tb is
 
 	constant exp_size_tb : natural := 4;
 	constant mant_size_tb : natural := 5;
+	constant word_size_tb : natural := 10;
 
 	constant BIAS : natural := 2**(exp_size_tb - 1) - 1;
 
@@ -17,9 +18,7 @@ architecture result_builder_tb_arq of result_builder_tb is
 	signal mant_in_aux : std_logic_vector(mant_size_tb - 1 downto 0)
 							:= "10000";
 
-	signal sign_out_aux : std_logic;
-	signal exp_out_aux : integer;
-	signal mant_out_aux : std_logic_vector(mant_size_tb - 1 downto 0);
+	signal res_aux : std_logic_vector(word_size_tb - 1 downto 0);
 
 begin
 
@@ -32,15 +31,14 @@ begin
 	DUT: entity work.result_builder
 		generic map(
 			exp_size => exp_size_tb,
-			mant_size => mant_size_tb
+			mant_size => mant_size_tb,
+			word_size => word_size_tb
 		)
 		port map(
 			sign => sign_aux,
 			exp_in => exp_in_aux,
 			mant_in => mant_in_aux,
-			sign_out => sign_out_aux,
-			exp_out => exp_out_aux,
-			mant_out => mant_out_aux
+			res => res_aux
 		);
 
 end architecture result_builder_tb_arq;
