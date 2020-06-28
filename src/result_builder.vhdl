@@ -4,9 +4,9 @@ library IEEE;
 
 entity result_builder is
 	generic(
+		word_size : natural := 10;
 		exp_size: natural := 4;
-		mant_size : natural := 5;
-		word_size : natural := 10
+		mant_size : natural := 5
 	);
 	port(
 		sign : in std_logic;

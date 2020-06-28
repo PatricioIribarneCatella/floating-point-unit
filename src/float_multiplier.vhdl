@@ -18,29 +18,27 @@ architecture float_multiplier_arq of float_multiplier is
 
 	constant BIAS : integer := 2**(exp_size - 1) - 1;
 
-	-- exponent
+	-- sign part
+	signal sign_aux : std_logic;
+
+	-- exponent part
 	constant EXP_BEGIN : natural := word_size - 2;
 	constant EXP_END: natural := EXP_BEGIN - exp_size + 1;
+
+	signal exp_aux : integer;
+	signal exp_res_aux : integer;
+	signal decoded_exp_a : integer := 0;
+	signal decoded_exp_b : integer := 0;
 
 	-- fraction part
 	constant MANT_BEGIN : natural := EXP_END - 1;
 	constant MANT_END : natural := 0;
 	constant MANT_SIZE : natural := word_size - exp_size - 1;
 
-	signal exp_aux : integer;
-	signal exp_res_aux : integer;
-
 	signal mant_aux : std_logic_vector(MANT_SIZE - 1 downto 0);
 	signal mant_res_aux : std_logic_vector(2 * MANT_SIZE + 1 downto 0);
-
-	signal decoded_exp_a : integer := 0;
-	signal decoded_exp_b : integer := 0;
-
 	signal significand_a : std_logic_vector(MANT_SIZE downto 0);
 	signal significand_b : std_logic_vector(MANT_SIZE downto 0);
-
-	signal sign : std_logic;
-	signal sign_aux : std_logic;
 
 begin
 
@@ -82,9 +80,9 @@ begin
 
 	RESULT_BUILDER: entity work.result_builder
 		generic map(
+			word_size => word_size,
 			exp_size => exp_size,
-			mant_size => MANT_SIZE,
-			word_size => word_size
+			mant_size => MANT_SIZE
 		)
 		port map(
 			sign => sign_aux,
