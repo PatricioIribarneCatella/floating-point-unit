@@ -1,3 +1,4 @@
+
 library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.numeric_std.all;
@@ -7,29 +8,27 @@ end entity float_multiplier_tb;
 
 architecture float_multiplier_tb_arq of float_multiplier_tb is
 
-	constant word_size_tb : natural := 23;
-	constant exp_size_tb : natural := 6;
+    constant WORD_SIZE_TB : natural := 23;
+    constant EXP_SIZE_TB  : natural := 6;
 
-	signal A_aux : std_logic_vector(word_size_tb - 1 downto 0)
-					:= "11111101111111111111111";
-	signal B_aux : std_logic_vector(word_size_tb - 1 downto 0)
-					:= "00111101010001110011001";
-	signal S_aux : std_logic_vector(word_size_tb - 1 downto 0);
+    signal a_aux   : std_logic_vector(WORD_SIZE_TB - 1 downto 0)          := "11111101111111111111111";
+    signal b_aux   : std_logic_vector(WORD_SIZE_TB - 1 downto 0)          := "00111101010001110011001";
+    signal s_aux   : std_logic_vector(WORD_SIZE_TB - 1 downto 0);
 
 begin
 
-	A_aux <= (others => '0') after 50 ns;
-	B_aux <= (others => '0') after 50 ns;
+    a_aux <= (others => '0') after 50 ns;
+    b_aux <= (others => '0') after 50 ns;
 
-	DUT: entity work.float_multiplier
-		generic map(
-			word_size => word_size_tb,
-			exp_size => exp_size_tb
-		)
-		port map(
-			A => A_aux,
-			B => B_aux,
-			S => S_aux
-		);
+  DUT: entity work.float_multiplier
+        generic map (
+            word_size => word_size_tb,
+            exp_size  => exp_size_tb
+        )
+        port map (
+            a => a_aux,
+            b => b_aux,
+            s => s_aux
+        );
 
 end architecture float_multiplier_tb_arq;

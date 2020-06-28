@@ -8,6 +8,9 @@
       "indentSize": 4,
       "case": "lower"
     },
+    "constant_007": {
+      "disable": true
+    },
     "constant_004": {
       "case": "upper"
     },
