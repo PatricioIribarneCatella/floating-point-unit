@@ -28,7 +28,7 @@ begin
         port map (
             op_a => a_aux,
             op_b => b_aux,
-            res => s_aux
+            res  => s_aux
         );
 
 end architecture float_multiplier_tb_arq;

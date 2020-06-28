@@ -11,7 +11,7 @@ entity float_multiplier is
     port (
         op_a : in    std_logic_vector(word_size - 1 downto 0);
         op_b : in    std_logic_vector(word_size - 1 downto 0);
-        res : out   std_logic_vector(word_size - 1 downto 0)
+        res  : out   std_logic_vector(word_size - 1 downto 0)
     );
 end entity float_multiplier;
 
