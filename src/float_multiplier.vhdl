@@ -9,9 +9,9 @@ entity float_multiplier is
         exp_size  : natural := 4
     );
     port (
-        a : in    std_logic_vector(word_size - 1 downto 0);
-        b : in    std_logic_vector(word_size - 1 downto 0);
-        s : out   std_logic_vector(word_size - 1 downto 0)
+        op_a : in    std_logic_vector(word_size - 1 downto 0);
+        op_b : in    std_logic_vector(word_size - 1 downto 0);
+        res : out   std_logic_vector(word_size - 1 downto 0)
     );
 end entity float_multiplier;
 
@@ -43,13 +43,13 @@ architecture float_multiplier_arq of float_multiplier is
 
 begin
 
-    sign_aux <= A(word_size - 1) xor B(word_size - 1);
+    sign_aux <= op_a(word_size - 1) xor op_b(word_size - 1);
 
-    decoded_exp_a <= to_integer(unsigned(A(EXP_BEGIN downto EXP_END))) - BIAS;
-    decoded_exp_b <= to_integer(unsigned(B(EXP_BEGIN downto EXP_END))) - BIAS;
+    decoded_exp_a <= to_integer(unsigned(op_a(EXP_BEGIN downto EXP_END))) - BIAS;
+    decoded_exp_b <= to_integer(unsigned(op_b(EXP_BEGIN downto EXP_END))) - BIAS;
 
-    significand_a <= '1' & A(MANT_BEGIN downto MANT_END);
-    significand_b <= '1' & B(MANT_BEGIN downto MANT_END);
+    significand_a <= '1' & op_a(MANT_BEGIN downto MANT_END);
+    significand_b <= '1' & op_b(MANT_BEGIN downto MANT_END);
 
   ADDER: entity work.adder
         port map (
@@ -89,7 +89,7 @@ begin
             sign    => sign_aux,
             exp_in  => exp_aux,
             mant_in => mant_aux,
-            res     => S
+            res     => res
         );
 
 end architecture float_multiplier_arq;
