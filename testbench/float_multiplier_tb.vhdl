@@ -11,8 +11,8 @@ architecture float_multiplier_tb_arq of float_multiplier_tb is
 
 	constant TCK: time := 20 ns;			-- periodo de reloj
 	constant DELAY: natural := 0;			-- retardo de procesamiento del DUT
-	constant WORD_SIZE_T: natural := 19;	-- tamaño de datos
-	constant EXP_SIZE_T: natural := 12;      -- tamaño exponente
+	constant WORD_SIZE_T: natural := 28;	-- tamaño de datos
+	constant EXP_SIZE_T: natural := 8;      -- tamaño exponente
 	
 	signal clk: std_logic := '0';
 	signal a_file: unsigned(WORD_SIZE_T-1 downto 0) := (others => '0');
@@ -27,7 +27,7 @@ architecture float_multiplier_tb_arq of float_multiplier_tb is
 	-- La senal z_del_aux se define por un problema de conversión
 	signal z_del_aux: std_logic_vector(WORD_SIZE_T-1 downto 0):= (others => '0');
 	
-	file datos: text open read_mode is "testbench/files/fmul_12_6.txt";
+	file datos: text open read_mode is "testbench/files/fmul_19_8.txt";
 
 begin
 
