@@ -11,20 +11,20 @@ architecture fm_tb_arq of fm_tb is
 	--	File: fmul_15_6.txt
 	--		2534066 2064383 3609004
 	--		2064383 2618694 3674602
-	--		722076 2416840 2126960
+	--		722076 2416840 2126960 -> resultado del exponente es -31
 	--		2064383 873228 1942471
 
     constant WORD_SIZE_TB : natural := 22;
     constant EXP_SIZE_TB  : natural := 6;
 
     signal a_aux : std_logic_vector(WORD_SIZE_TB - 1 downto 0)
-					:= std_logic_vector(to_unsigned(2534066, WORD_SIZE_TB));
-    signal b_aux : std_logic_vector(WORD_SIZE_TB - 1 downto 0)
 					:= std_logic_vector(to_unsigned(2064383, WORD_SIZE_TB));
+    signal b_aux : std_logic_vector(WORD_SIZE_TB - 1 downto 0)
+					:= std_logic_vector(to_unsigned(873228, WORD_SIZE_TB));
     signal s_aux : std_logic_vector(WORD_SIZE_TB - 1 downto 0);
 
 	signal expected : std_logic_vector(WORD_SIZE_TB - 1 downto 0)
-					:= std_logic_vector(to_unsigned(3609004, WORD_SIZE_TB));
+					:= std_logic_vector(to_unsigned(1942471, WORD_SIZE_TB));
 begin
 
     a_aux <= (others => '0') after 50 ns;
