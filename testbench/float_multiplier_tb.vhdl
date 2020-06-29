@@ -11,8 +11,8 @@ architecture float_multiplier_tb_arq of float_multiplier_tb is
 
 	constant TCK: time := 20 ns;			-- periodo de reloj
 	constant DELAY: natural := 0;			-- retardo de procesamiento del DUT
-	constant WORD_SIZE_T: natural := 29;	-- tamaño de datos
-	constant EXP_SIZE_T: natural := 7;      -- tamaño exponente
+	constant WORD_SIZE_T: natural := 22;	-- tamaño de datos
+	constant EXP_SIZE_T: natural := 6;      -- tamaño exponente
 	
 	signal clk: std_logic := '0';
 	signal a_file: unsigned(WORD_SIZE_T-1 downto 0) := (others => '0');
@@ -27,7 +27,7 @@ architecture float_multiplier_tb_arq of float_multiplier_tb is
 	-- La senal z_del_aux se define por un problema de conversión
 	signal z_del_aux: std_logic_vector(WORD_SIZE_T-1 downto 0):= (others => '0');
 	
-	file datos: text open read_mode is "testbench/files/fmul_21_7.txt";
+	file datos: text open read_mode is "testbench/files/fmul_15_6.txt";
 
 begin
 
@@ -103,10 +103,8 @@ begin
 	begin
 		if rising_edge(clk) then
 			assert to_integer(z_del) = to_integer(z_dut) report
-				"Error: Salida del DUT no coincide con referencia (salida del dut = " & 
-				integer'image(to_integer(z_dut)) &
-				", salida del archivo = " &
-				integer'image(to_integer(z_del)) & ")"
+				"Error: Salida del DUT: " & integer'image(to_integer(z_dut)) &
+				", salida del archivo = " & integer'image(to_integer(z_del))
 				severity warning;
 			if to_integer(z_del) /= to_integer(z_dut) then
 				errores <= errores + 1;

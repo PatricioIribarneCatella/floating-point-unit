@@ -13,8 +13,6 @@ architecture fm_tb_arq of fm_tb is
 	--		2064383 2618694 3674602
 	--		722076 2416840 2126960
 	--		2064383 873228 1942471
-	--
-	--	File: 
 
     constant WORD_SIZE_TB : natural := 22;
     constant EXP_SIZE_TB  : natural := 6;
