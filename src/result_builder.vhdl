@@ -24,7 +24,7 @@ architecture result_builder_arq of result_builder is
     constant MIN_EXP   : integer := - (BIAS - 1);
 
     constant SAT_EXP   : std_logic_vector(exp_size - 1 downto 0)
-      := std_logic_vector(to_unsigned(MAX_EXP, exp_size));
+			:= std_logic_vector(to_unsigned(MAX_EXP + BIAS, exp_size));
     constant SAT_MANT  : std_logic_vector(mant_size - 1 downto 0)
             := (others => '1');
 
