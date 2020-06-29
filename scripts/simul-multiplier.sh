@@ -3,7 +3,6 @@
 SIMDIR="simul"
 
 COMPONENT="float_multiplier"
-#COMPONENT="fm"
 SIMBIN=$COMPONENT"_tb"
 
 SIMFLAGS="--vcdgz=$SIMDIR/$SIMBIN.vcdgz"
