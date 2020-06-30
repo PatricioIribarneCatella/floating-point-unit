@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 SIMDIR="simul"
 STOPTIME="500ns"
 

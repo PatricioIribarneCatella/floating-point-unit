@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 SIMDIR="simul"
 
 COMPONENT="fm"

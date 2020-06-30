@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 SIMDIR="simul"
 GHDLFLAGS="--ieee=standard -fsynopsys --warn-no-vital-generic --workdir=$SIMDIR"
 

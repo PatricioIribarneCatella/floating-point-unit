@@ -31,7 +31,7 @@ architecture float_multiplier_tb_arq of float_multiplier_tb is
 
 begin
 
-	clk <= not(clk) after TCK/ 2;
+	clk <= not(clk) after TCK / 2;
 
 	test_sequence: process
 		variable l: line;
