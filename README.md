@@ -43,7 +43,7 @@ $ ./scripts/run COMPONENT_NAME
 It runs [GTKWave](http://gtkwave.sourceforge.net/) to show the simulation.
 
 ```bash
-$ make view COMPONENT=[]
+$ make view COMPONENT=COMPONENT_NAME
 ```
 
 ## Linter
@@ -52,4 +52,12 @@ It runs [VSG](https://github.com/jeremiah-c-leary/vhdl-style-guide) _python_ mod
 
 ```bash
 $ make lint
+```
+
+## Clean
+
+To remove output generated files
+
+```bash
+$ make clean
 ```
