@@ -4,3 +4,6 @@
 
 # Vivado output files and directories
 synth/floating-point.*
+
+# python output files
+**/__pycache__/
