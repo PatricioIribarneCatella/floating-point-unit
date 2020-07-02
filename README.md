@@ -6,21 +6,37 @@ VHDL implementation of multiplier and adder/substracter for IEEE floating point 
 
 You can install [GHDL](https://ghdl.readthedocs.io/en/latest/), [GTKWave](http://gtkwave.sourceforge.net/) and [VSG](https://github.com/jeremiah-c-leary/vhdl-style-guide) on your machine, or you can use the _Vagrantfile_ (you need [Vagrant](https://www.vagrantup.com/) installed) to run all this tools inside that _VM_.
 
-## Compile
+## Float Multiplier
 
-```bash
-$ make COMPONENT=[]
-```
-
-## Simulate
+### Run
 
 It runs the simulation using [GHDL](https://ghdl.readthedocs.io/en/latest/).
 
 ```bash
-$ make sim STOPTIME=time COMPONENT=[]
+$ ./scripts/run-multiplier TEST_FILE
 ```
 
-`time` defaults to _500 ns_
+## Components
+
+### Compile
+
+```bash
+$ ./scripts/compile COMPONENT_NAME
+```
+
+### Simulate
+
+```bash
+$ ./scripts/simul COMPONENT_NAME
+```
+
+### Run
+
+It executes both _scripts_, compilation and simulation
+
+```bash
+$ ./scripts/run COMPONENT_NAME
+```
 
 ## Visualize
 
