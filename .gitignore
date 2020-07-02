@@ -7,3 +7,6 @@ synth/floating-point.*
 
 # python output files
 **/__pycache__/
+
+# Floating Multiplier Testbench
+testbench/float_multiplier_tb.vhdl
