@@ -5,8 +5,8 @@ set -eu
 FILE=$1
 
 ./scripts/generate-tb.py $FILE
-./scripts/compile-multiplier.sh
-./scripts/simul-multiplier.sh
+./scripts/compile-multiplier
+./scripts/simul-multiplier
 
 #while [[ $# -gt 0 ]]; do
 #	file=$1

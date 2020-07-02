@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -eu
+
+COMPONENT=$1
+
+./scripts/compile $COMPONENT
+./scripts/simul $COMPONENT
