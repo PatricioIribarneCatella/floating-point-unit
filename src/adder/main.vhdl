@@ -9,9 +9,9 @@ entity main is
         exp_size  : natural := 4
     );
     port (
-        op_a : in    std_logic_vector(word_size - 1 downto 0);
-        op_b : in    std_logic_vector(word_size - 1 downto 0);
-        res : out   std_logic_vector(word_size - 1 downto 0)
+        op_a : in  std_logic_vector(word_size - 1 downto 0);
+        op_b : in  std_logic_vector(word_size - 1 downto 0);
+        res : out  std_logic_vector(word_size - 1 downto 0)
     );
 end entity main;
 
