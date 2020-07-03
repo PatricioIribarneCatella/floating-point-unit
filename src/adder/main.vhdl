@@ -74,7 +74,8 @@ begin
 			comp_sig_b => comp_sig_b_aux,
 			sign_a => op_a(word_size - 1),
 			sign_b => op_b(word_size - 1),
-			significand_b => significand_b
+			significand_b => significand_b,
+			significand_b_out => significand_b_aux
 		);
 
 	STEP_3_SHIFT_SIG_B: entity work.step_3_shift_sig_b
