@@ -4,7 +4,7 @@ import sys
 
 from template import PROLOGUE, EPILOGUE
 
-TESTBENCH_PATH = 'testbench/float_multiplier_tb.vhdl'
+TESTBENCH_PATH = 'testbench/multiplier/main_tb.vhdl'
 
 def parse_args():
 

@@ -6,36 +6,28 @@ VHDL implementation of multiplier and adder/substracter for IEEE floating point 
 
 You can install [GHDL](https://ghdl.readthedocs.io/en/latest/), [GTKWave](http://gtkwave.sourceforge.net/) and [VSG](https://github.com/jeremiah-c-leary/vhdl-style-guide) on your machine, or you can use the _Vagrantfile_ (you need [Vagrant](https://www.vagrantup.com/) installed) to run all this tools inside that _VM_.
 
-## Float Multiplier
+## Components
 
 ### Run
 
 It runs the simulation using [GHDL](https://ghdl.readthedocs.io/en/latest/).
 
 ```bash
-$ ./scripts/run-multiplier TEST_FILE
+$ ./scripts/run COMPONENT_NAME SUBCOMPONENT_NAME [TEST_FILE]
 ```
 
-## Components
+Where `COMPONENT_NAME` can be one of _multiplier_ or _adder_. Then the `SUBCOMPONENT_NAME` can be one of the sub-components that the previous ones use to work. The `TEST_FILE` is only used when the sub-component is _main_ indicating that the test files located in `testbench` folder are going to be used.
 
 ### Compile
 
 ```bash
-$ ./scripts/compile COMPONENT_NAME
+$ ./scripts/compile COMPONENT_NAME SUBCOMPONENT_NAME
 ```
 
 ### Simulate
 
 ```bash
-$ ./scripts/simul COMPONENT_NAME
-```
-
-### Run
-
-It executes both _scripts_, compilation and simulation
-
-```bash
-$ ./scripts/run COMPONENT_NAME
+$ ./scripts/simul SUBCOMPONENT_NAME
 ```
 
 ## Visualize

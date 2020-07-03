@@ -8,8 +8,14 @@ GHDLFLAGS="--ieee=standard -fsynopsys --warn-no-vital-generic --workdir=$SIMDIR"
 COMPONENT=$1
 SUBCOMPONENT=$2
 
-SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
+if [[ "$SUBCOMPONENT" == "main" ]]; then
+	UTILS="testbench/utils/*"
+	SRCFILES="src/$COMPONENT/*"
+else
+	UTILS=""
+	SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
+fi
 
 mkdir -p $SIMDIR
-ghdl -i $GHDLFLAGS --work=work testbench/$COMPONENT/$SUBCOMPONENT"_tb.vhdl" $SRCFILES
+ghdl -i $GHDLFLAGS --work=work testbench/$COMPONENT/$SUBCOMPONENT"_tb.vhdl" $UTILS $SRCFILES
 ghdl -m $GHDLFLAGS --work=work $SUBCOMPONENT"_tb"

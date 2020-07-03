@@ -3,7 +3,7 @@ library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.numeric_std.all;
 
-entity float_multiplier is
+entity main is
     generic (
         word_size : natural := 10;
         exp_size  : natural := 4
@@ -13,9 +13,9 @@ entity float_multiplier is
         op_b : in    std_logic_vector(word_size - 1 downto 0);
         res  : out   std_logic_vector(word_size - 1 downto 0)
     );
-end entity float_multiplier;
+end entity main;
 
-architecture float_multiplier_arq of float_multiplier is
+architecture main_arq of main is
 
     constant BIAS       : integer := 2**(exp_size - 1) - 1;
 
@@ -92,4 +92,4 @@ begin
             res     => res
         );
 
-end architecture float_multiplier_arq;
+end architecture main_arq;

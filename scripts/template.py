@@ -9,10 +9,10 @@ library IEEE;\n\
     use IEEE.numeric_std.all;\n\
     use std.textio.all;\n\
 \n\
-entity float_multiplier_tb is\n\
-end entity float_multiplier_tb;\n\
+entity main_tb is\n\
+end entity main_tb;\n\
 \n\
-architecture float_multiplier_tb_arq of float_multiplier_tb is\n\
+architecture main_tb_arq of main_tb is\n\
 \n"
 
 EPILOGUE = "\
@@ -66,7 +66,7 @@ begin\n\
 \n\
 end process test_sequence;\n\
 \n\
-DUT: entity work.float_multiplier\n\
+DUT: entity work.main\n\
         generic map(\n\
                 word_size => WORD_SIZE_T,\n\
                 exp_size => EXP_SIZE_T\n\
@@ -103,5 +103,5 @@ begin\n\
         end if;\n\
 end process verificacion;\n\
 \n\
-end architecture float_multiplier_tb_arq;\n\
+end architecture main_tb_arq;\n\
 \n"
