@@ -55,6 +55,7 @@ begin
 			mant_size => MANT_SIZE
 		)
 		port map(
+			swap => swap_aux,
 			exp_a => decoded_exp_a,
 			exp_b => decoded_exp_b,
 			mant_a => op_a(MANT_BEGIN downto MANT_END),
@@ -67,10 +68,13 @@ begin
 
 	STEP_2_COMPLEMENT_SIG_B: entity work.step_2_complement_sig_b
 		generic map(
-			
+			mant_size => MANT_SIZE
 		)
 		port map(
-			
+			comp_sig_b => comp_sig_b_aux,
+			sign_a => op_a(word_size - 1),
+			sign_b => op_b(word_size - 1),
+			significand_b => significand_b
 		);
 
 	STEP_3_SHIFT_SIG_B: entity work.step_3_shift_sig_b
