@@ -3,7 +3,7 @@ library IEEE;
     use IEEE.std_logic_1164.all;
     use IEEE.numeric_std.all;
 
-entity float_adder is
+entity main is
     generic (
         word_size : natural := 10;
         exp_size  : natural := 4
@@ -13,10 +13,10 @@ entity float_adder is
         b : in    std_logic_vector(word_size - 1 downto 0);
         s : out   std_logic_vector(word_size - 1 downto 0)
     );
-end entity float_adder;
+end entity main;
 
-architecture float_adder_arq of float_adder is
+architecture main_arq of main is
 
 begin
 
-end architecture float_adder_arq;
+end architecture main_arq;
