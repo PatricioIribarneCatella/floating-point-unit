@@ -1,5 +1,6 @@
 # simulation
 SIMDIR = simul
+SIMBIN = $(COMPONENT)_tb
 
 # ghdl
 GHDLCMD = ghdl

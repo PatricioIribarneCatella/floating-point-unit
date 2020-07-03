@@ -6,9 +6,10 @@ SIMDIR="simul"
 GHDLFLAGS="--ieee=standard -fsynopsys --warn-no-vital-generic --workdir=$SIMDIR"
 
 COMPONENT=$1
+SUBCOMPONENT=$2
 
-SRCFILES="src/$COMPONENT.vhdl"
+SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
 
 mkdir -p $SIMDIR
-ghdl -i $GHDLFLAGS --work=work testbench/$COMPONENT"_tb.vhdl" $SRCFILES
-ghdl -m $GHDLFLAGS --work=work $COMPONENT"_tb"
+ghdl -i $GHDLFLAGS --work=work testbench/$COMPONENT/$SUBCOMPONENT"_tb.vhdl" $SRCFILES
+ghdl -m $GHDLFLAGS --work=work $SUBCOMPONENT"_tb"

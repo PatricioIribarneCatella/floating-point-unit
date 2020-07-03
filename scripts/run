@@ -3,6 +3,7 @@
 set -eu
 
 COMPONENT=$1
+SUBCOMPONENT=$2
 
-./scripts/compile $COMPONENT
-./scripts/simul $COMPONENT
+./scripts/compile $COMPONENT $SUBCOMPONENT
+./scripts/simul $SUBCOMPONENT
