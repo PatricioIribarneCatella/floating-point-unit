@@ -118,11 +118,12 @@ begin
 		);
 
 	STEP_8_CALC_SIGN: entity work.step_8_calc_sign
-		generic map(
-			
-		)
 		port map(
-			
+			sign_a => op_a(word_size - 1),
+			sign_b => op_b(word_size - 1),
+			swap => swap_aux,
+			comp_sig => comp_sig_aux,
+			sign_out => sign_out_aux
 		);
 
 end architecture main_arq;
