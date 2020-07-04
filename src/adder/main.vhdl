@@ -80,10 +80,15 @@ begin
 
 	STEP_3_SHIFT_SIG_B: entity work.step_3_shift_sig_b
 		generic map(
-			
+			mant_size => MANT_SIZE
 		)
 		port map(
-			
+			comp_sig_b => comp_sig_b_aux,
+			significand_b => significand_b_aux,
+			significand_b_out => significand_b_out_aux,
+			exp_a => decoded_exp_a,
+			exp_b => decoded_exp_b,
+			guard_bit => guard_bit_aux
 		);
 
 	STEP_4_SUM_SIGNIFICANDS: entity work.step_4_sum_significands
