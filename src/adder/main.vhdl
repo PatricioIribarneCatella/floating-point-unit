@@ -126,4 +126,17 @@ begin
 			sign_out => sign_out_aux
 		);
 
+	RESULT_BUILDER: entity work.result_builder
+        generic map(
+            word_size => word_size,
+            exp_size  => exp_size,
+            mant_size => MANT_SIZE
+        )
+        port map(
+            sign    => sign_out_aux,
+            exp_in  => exp_out_aux,
+            significand_in => significand_out_aux,
+            res     => res
+        );
+
 end architecture main_arq;
