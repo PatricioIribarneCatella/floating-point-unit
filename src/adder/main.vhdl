@@ -46,9 +46,6 @@ begin
     decoded_exp_a <= to_integer(unsigned(op_a(EXP_BEGIN downto EXP_END))) - BIAS;
     decoded_exp_b <= to_integer(unsigned(op_b(EXP_BEGIN downto EXP_END))) - BIAS;
 
-    significand_a <= '1' & op_a(MANT_BEGIN downto MANT_END);
-    significand_b <= '1' & op_b(MANT_BEGIN downto MANT_END);
-
 	STEP_1_SWAP_OPERANDS: entity work.step_1_swap_operands
 		generic map(
 			exp_size => exp_size,
@@ -74,7 +71,7 @@ begin
 			comp_sig_b => comp_sig_b_aux,
 			sign_a => op_a(word_size - 1),
 			sign_b => op_b(word_size - 1),
-			significand_b => significand_b,
+			significand_b => '1' & mant_b_out_aux,
 			significand_b_out => significand_b_aux
 		);
 
@@ -86,17 +83,22 @@ begin
 			comp_sig_b => comp_sig_b_aux,
 			significand_b => significand_b_aux,
 			significand_b_out => significand_b_out_aux,
-			exp_a => decoded_exp_a,
-			exp_b => decoded_exp_b,
+			exp_a => exp_a_out_aux,
+			exp_b => exp_b_out_aux,
 			guard_bit => guard_bit_aux
 		);
 
 	STEP_4_SUM_SIGNIFICANDS: entity work.step_4_sum_significands
 		generic map(
-			
+			mant_size => MANT_SIZE
 		)
 		port map(
-			
+			significand_a => '1' & mant_a_out_aux,
+			significand_b => significand_b_out_aux,
+			sign_a => op_a(word_size - 1),
+			sign_b => op_b(word_size - 1),
+			comp_sig => comp_sig_aux,
+			c_out => c_out_aux
 		);
 
 	STEP_5_SHIFT_SIG_RES: entity work.step_5_shift_sig_res
