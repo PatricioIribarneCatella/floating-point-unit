@@ -95,6 +95,7 @@ begin
 		port map(
 			significand_a => '1' & mant_a_out_aux,
 			significand_b => significand_b_out_aux,
+			significand_res => significand_res_aux,
 			sign_a => op_a(word_size - 1),
 			sign_b => op_b(word_size - 1),
 			comp_sig => comp_sig_aux,
@@ -103,10 +104,17 @@ begin
 
 	STEP_5_SHIFT_SIG_RES: entity work.step_5_shift_sig_res
 		generic map(
-			
+			mant_size => MANT_SIZE
 		)
 		port map(
-			
+			c_out => c_out_aux,
+			guard_bit => guard_bit_aux,
+			sign_a => op_a(word_size - 1),
+			sign_b => op_b(word_size - 1),
+			significand => significand_res_aux,
+			significand_out => significand_out_aux,
+			exp => exp_a_out_aux,
+			exp_out => exp_out_aux
 		);
 
 	STEP_8_CALC_SIGN: entity work.step_8_calc_sign
