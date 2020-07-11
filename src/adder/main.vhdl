@@ -11,7 +11,7 @@ entity main is
     port (
         op_a : in  std_logic_vector(word_size - 1 downto 0);
         op_b : in  std_logic_vector(word_size - 1 downto 0);
-        res : out  std_logic_vector(word_size - 1 downto 0)
+        res  : out std_logic_vector(word_size - 1 downto 0)
     );
 end entity main;
 
@@ -53,10 +53,14 @@ begin
 		)
 		port map(
 			swap => swap_aux,
+			sign_a => op_a(word_size - 1),
+			sign_b => op_b(word_size - 1),
 			exp_a => decoded_exp_a,
 			exp_b => decoded_exp_b,
 			mant_a => op_a(MANT_BEGIN downto MANT_END),
 			mant_b => op_b(MANT_BEGIN downto MANT_END),
+			sign_a_out => sign_a_out_aux,
+			sign_b_out => sign_b_out_aux,
 			exp_a_out => exp_a_out_aux,
 			exp_b_out => exp_b_out_aux,
 			mant_a_out => mant_a_out_aux,
@@ -69,8 +73,8 @@ begin
 		)
 		port map(
 			comp_sig_b => comp_sig_b_aux,
-			sign_a => op_a(word_size - 1),
-			sign_b => op_b(word_size - 1),
+			sign_a => sign_a_out_aux,
+			sign_b => sign_b_out_aux,
 			significand_b => '1' & mant_b_out_aux,
 			significand_b_out => significand_b_aux
 		);
@@ -96,8 +100,8 @@ begin
 			significand_a => '1' & mant_a_out_aux,
 			significand_b => significand_b_out_aux,
 			significand_res => significand_res_aux,
-			sign_a => op_a(word_size - 1),
-			sign_b => op_b(word_size - 1),
+			sign_a => sign_a_out_aux,
+			sign_b => sign_b_out_aux,
 			comp_sig => comp_sig_aux,
 			c_out => c_out_aux
 		);
@@ -109,8 +113,8 @@ begin
 		port map(
 			c_out => c_out_aux,
 			guard_bit => guard_bit_aux,
-			sign_a => op_a(word_size - 1),
-			sign_b => op_b(word_size - 1),
+			sign_a => sign_a_out_aux,
+			sign_b => sign_b_out_aux,
 			significand => significand_res_aux,
 			significand_out => significand_out_aux,
 			exp => exp_a_out_aux,
@@ -119,8 +123,8 @@ begin
 
 	STEP_8_CALC_SIGN: entity work.step_8_calc_sign
 		port map(
-			sign_a => op_a(word_size - 1),
-			sign_b => op_b(word_size - 1),
+			sign_a => sign_a_out_aux,
+			sign_b => sign_b_out_aux,
 			swap => swap_aux,
 			comp_sig => comp_sig_aux,
 			sign_out => sign_out_aux
