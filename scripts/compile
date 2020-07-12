@@ -11,6 +11,9 @@ SUBCOMPONENT=$2
 if [[ "$SUBCOMPONENT" == "main" ]]; then
 	UTILS="testbench/utils/*"
 	SRCFILES="src/$COMPONENT/*"
+elif [[ "$SUBCOMPONENT" == "step_5_shift_sig_res" ]]; then
+	UTILS="src/$COMPONENT/utils.vhdl"
+	SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
 else
 	UTILS=""
 	SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"

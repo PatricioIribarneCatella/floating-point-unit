@@ -115,7 +115,7 @@ begin
 			guard_bit => guard_bit_aux,
 			sign_a => sign_a_out_aux,
 			sign_b => sign_b_out_aux,
-			significand => significand_res_aux,
+			significand_in => significand_res_aux,
 			significand_out => significand_out_aux,
 			exp => exp_a_out_aux,
 			exp_out => exp_out_aux
