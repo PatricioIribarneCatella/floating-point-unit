@@ -14,6 +14,9 @@ if [[ "$SUBCOMPONENT" == "main" ]]; then
 elif [[ "$SUBCOMPONENT" == "step_5_shift_sig_res" ]]; then
 	UTILS="src/$COMPONENT/utils.vhdl"
 	SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
+elif [[ "$SUBCOMPONENT" == "step_8_calc_sign" ]]; then
+	UTILS="src/$COMPONENT/utils.vhdl"
+	SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
 else
 	UTILS=""
 	SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
