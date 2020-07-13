@@ -19,27 +19,41 @@ architecture main_arq of main is
 
     constant BIAS       : integer := 2**(exp_size - 1) - 1;
 
-    -- sign part
-    signal sign_aux      : std_logic;
-
     -- exponent part
     constant EXP_BEGIN  : natural := word_size - 2;
     constant EXP_END    : natural := EXP_BEGIN - exp_size + 1;
-
-    signal exp_aux       : integer;
-    signal exp_res_aux   : integer;
-    signal decoded_exp_a : integer := 0;
-    signal decoded_exp_b : integer := 0;
 
     -- fraction part
     constant MANT_BEGIN : natural := EXP_END - 1;
     constant MANT_END   : natural := 0;
     constant MANT_SIZE  : natural := word_size - exp_size - 1;
 
-    signal mant_aux      : std_logic_vector(MANT_SIZE - 1 downto 0);
-    signal mant_res_aux  : std_logic_vector(2 * MANT_SIZE + 1 downto 0);
-    signal significand_a : std_logic_vector(MANT_SIZE downto 0);
-    signal significand_b : std_logic_vector(MANT_SIZE downto 0);
+    signal decoded_exp_a : integer := 0;
+    signal decoded_exp_b : integer := 0;
+
+	signal swap_aux : std_logic := '0';
+	signal sign_a_out_aux : std_logic := '0';
+	signal sign_b_out_aux : std_logic := '0';
+	signal exp_a_out_aux : integer := 0;
+	signal exp_b_out_aux : integer := 0;
+	signal swap_significand_a_aux : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
+	signal swap_significand_b_aux : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
+
+	signal comp_sig_b_aux : std_logic := '0';
+	signal significand_b_aux : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
+	signal significand_b_out_aux : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
+	signal guard_bit_aux : std_logic := '0';
+
+	signal significand_res_aux : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
+	signal comp_sig_aux : std_logic := '0';
+	signal c_out_aux : std_logic := '0';
+
+	signal significand_out_aux : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
+	signal exp_out_aux : integer := 0;
+
+	signal sign_out_aux : std_logic := '0';
+    signal significand_a : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
+    signal significand_b : std_logic_vector(MANT_SIZE downto 0) := (others => '0');
 
 begin
 
@@ -63,8 +77,8 @@ begin
 			sign_b_out => sign_b_out_aux,
 			exp_a_out => exp_a_out_aux,
 			exp_b_out => exp_b_out_aux,
-			mant_a_out => mant_a_out_aux,
-			mant_b_out => mant_b_out_aux
+			significand_a_out => swap_significand_a_aux,
+			significand_b_out => swap_significand_b_aux
 		);
 
 	STEP_2_COMPLEMENT_SIG_B: entity work.step_2_complement_sig_b
@@ -75,7 +89,7 @@ begin
 			comp_sig_b => comp_sig_b_aux,
 			sign_a => sign_a_out_aux,
 			sign_b => sign_b_out_aux,
-			significand_b => '1' & mant_b_out_aux,
+			significand_b => swap_significand_b_aux,
 			significand_b_out => significand_b_aux
 		);
 
@@ -97,7 +111,7 @@ begin
 			mant_size => MANT_SIZE
 		)
 		port map(
-			significand_a => '1' & mant_a_out_aux,
+			significand_a => swap_significand_a_aux,
 			significand_b => significand_b_out_aux,
 			significand_res => significand_res_aux,
 			sign_a => sign_a_out_aux,

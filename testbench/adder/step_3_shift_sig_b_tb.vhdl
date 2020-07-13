@@ -8,13 +8,14 @@ end entity step_3_shift_sig_b_tb;
 
 architecture step_3_shift_sig_b_tb_arq of step_3_shift_sig_b_tb is
 
-	constant mant_size_tb : natural := 7;
+	constant mant_size_tb : natural := 23;
 
 	signal comp_sig_b_aux : std_logic := '0';
-	signal significand_b_aux : std_logic_vector(mant_size_tb downto 0) := "11000001";
+	signal significand_b_aux : std_logic_vector(mant_size_tb downto 0)
+								:= "110000000000000000000000";
 	signal significand_b_out_aux : std_logic_vector(mant_size_tb downto 0);
-	signal exp_a_aux : integer := 4;
-	signal exp_b_aux : integer := 1;
+	signal exp_a_aux : integer := 6;
+	signal exp_b_aux : integer := -2;
 	signal guard_bit_aux : std_logic;
 
 begin

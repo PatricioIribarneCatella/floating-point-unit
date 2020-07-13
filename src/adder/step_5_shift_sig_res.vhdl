@@ -36,13 +36,20 @@ begin
 		else
 			shift_count := count_zeros(significand_in);
 
-			significand_out(mant_size downto shift_count)
-					<= significand_in((mant_size - shift_count) downto 0);
+			-- for delta time at zero where variables
+			-- do not have appropiate values
+			if (shift_count = 0 or shift_count = (mant_size + 1)) then
+				significand_out <= significand_in;
+				exp_out <= exp;
+			else
+				significand_out(mant_size downto shift_count)
+						<= significand_in((mant_size - shift_count) downto 0);
 
-			significand_out(shift_count - 1) <= guard_bit;
-			significand_out((shift_count - 2) downto 0) <= (others => '0');
+				significand_out(shift_count - 1) <= guard_bit;
+				significand_out((shift_count - 2) downto 0) <= (others => '0');
 
-			exp_out <= exp - shift_count;
+				exp_out <= exp - shift_count;
+			end if;
 		end if;
 
 	end process shifter;
