@@ -139,7 +139,7 @@ begin
         port map(
             sign    => sign_out_aux,
             exp_in  => exp_out_aux,
-            significand_in => significand_out_aux,
+            mant_in => significand_out_aux(MANT_SIZE - 1 downto 0),
             res     => res
         );
 
