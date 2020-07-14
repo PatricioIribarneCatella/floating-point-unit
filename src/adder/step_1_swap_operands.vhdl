@@ -12,14 +12,14 @@ entity step_1_swap_operands is
 		swap : out std_logic;
 		sign_a : in std_logic;
 		sign_b : in std_logic;
-		exp_a : in integer;
-		exp_b : in integer;
+		exp_a : in std_logic_vector(exp_size - 1 downto 0);
+		exp_b : in std_logic_vector(exp_size - 1 downto 0);
 		mant_a : in std_logic_vector(mant_size - 1 downto 0);
 		mant_b : in std_logic_vector(mant_size - 1 downto 0);
 		sign_a_out : out std_logic;
 		sign_b_out : out std_logic;
-		exp_a_out : out integer;
-		exp_b_out : out integer;
+		exp_a_out : out std_logic_vector(exp_size - 1 downto 0);
+		exp_b_out : out std_logic_vector(exp_size - 1 downto 0);
 		significand_a_out : out std_logic_vector(mant_size downto 0);
 		significand_b_out : out std_logic_vector(mant_size downto 0)
 	);
@@ -30,9 +30,16 @@ architecture step_1_swap_operands_arq of step_1_swap_operands is
 begin
 
 	swapper : process (exp_a, exp_b) is
+
+		variable exp_a_val : integer;
+		variable exp_b_val : integer;
+
 	begin
 
-		if (exp_a < exp_b) then
+		exp_a_val := to_integer(unsigned(exp_a));
+		exp_b_val := to_integer(unsigned(exp_b));
+
+		if (exp_a_val < exp_b_val) then
 			sign_a_out <= sign_b;
 			sign_b_out <= sign_a;
 			exp_a_out <= exp_b;

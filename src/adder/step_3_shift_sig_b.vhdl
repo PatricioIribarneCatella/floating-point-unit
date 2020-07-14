@@ -5,14 +5,15 @@ library IEEE;
 
 entity step_3_shift_sig_b is
 	generic(
+		exp_size : natural := 3;
 		mant_size : natural := 5
 	);
 	port(
 		comp_sig_b : in std_logic;
 		significand_b : in std_logic_vector(mant_size downto 0);
 		significand_b_out : out std_logic_vector(mant_size downto 0);
-		exp_a : in integer;
-		exp_b : in integer;
+		exp_a : in std_logic_vector(exp_size - 1 downto 0);
+		exp_b : in std_logic_vector(exp_size - 1 downto 0);
 		guard_bit : out std_logic
 	);
 end entity step_3_shift_sig_b;
@@ -26,7 +27,7 @@ begin
 
 	begin
 
-		shift_count := exp_a - exp_b;
+		shift_count := to_integer(unsigned(exp_a) - unsigned(exp_b));
 
 		significand_b_out <= std_logic_vector(shift_right(unsigned(significand_b), shift_count));
 

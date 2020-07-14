@@ -6,6 +6,7 @@ library IEEE;
 
 entity step_5_shift_sig_res is
 	generic(
+		exp_size : natural := 3;
 		mant_size : natural := 5
 	);
 	port(
@@ -15,8 +16,8 @@ entity step_5_shift_sig_res is
 		sign_b : in std_logic;
 		significand_in : in std_logic_vector(mant_size downto 0);
 		significand_out : out std_logic_vector(mant_size downto 0);
-		exp : in integer;
-		exp_out : out integer
+		exp : in std_logic_vector(exp_size - 1 downto 0);
+		exp_out : out std_logic_vector(exp_size - 1 downto 0)
 	);
 end entity step_5_shift_sig_res;
 
@@ -32,7 +33,7 @@ begin
 
 		if ((sign_a = sign_b) and (c_out = '1')) then
 			significand_out <= c_out & significand_in(mant_size downto 1);
-			exp_out <= exp + 1;
+			exp_out <= std_logic_vector(unsigned(exp) + to_unsigned(1, exp_size));
 		else
 			shift_count := count_zeros(significand_in);
 
@@ -48,7 +49,7 @@ begin
 				significand_out(shift_count - 1) <= guard_bit;
 				significand_out((shift_count - 2) downto 0) <= (others => '0');
 
-				exp_out <= exp - shift_count;
+				exp_out <= std_logic_vector(unsigned(exp) - to_unsigned(shift_count, exp_size));
 			end if;
 		end if;
 
