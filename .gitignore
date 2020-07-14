@@ -1,5 +1,7 @@
 # GHDL simulation directory
 **/simul
+
+# Vagrant tmp files
 .vagrant/
 
 # Vivado output files and directories
@@ -8,5 +10,6 @@ synth/floating-point.*
 # python output files
 **/__pycache__/
 
-# Floating Multiplier Testbench
-testbench/float_multiplier_tb.vhdl
+# Floating point generated testbench files
+testbench/multiplier/main_tb.vhdl
+testbench/adder/main_tb.vhdl
