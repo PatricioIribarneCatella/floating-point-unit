@@ -13,8 +13,7 @@ entity main is
         op_b  : in  std_logic_vector(word_size - 1 downto 0);
         res   : out std_logic_vector(word_size - 1 downto 0);
 		clk   : in std_logic;
-		start : in std_logic;
-		done  : out std_logic
+		start : in std_logic
     );
 end entity main;
 

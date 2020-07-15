@@ -29,15 +29,28 @@ begin
 
 		shift_count := to_integer(unsigned(exp_a) - unsigned(exp_b));
 
-		significand_b_out <= std_logic_vector(shift_right(unsigned(significand_b), shift_count));
-
-		if (comp_sig_b = '1') then
-			significand_b_out(mant_size downto (mant_size + 1 - shift_count)) <= (others => '1');
-		end if;
-
 		if (shift_count = 0) then
+
 			guard_bit <= '0';
+			significand_b_out <= significand_b;
+
+		elsif (shift_count > (mant_size + 1)) then
+
+			if (comp_sig_b = '0') then
+				significand_b_out <= (others => '0');
+				guard_bit <= '0';
+			else
+				significand_b_out <= (others => '1');
+				guard_bit <= '1';
+			end if;
 		else
+
+			significand_b_out <= std_logic_vector(shift_right(unsigned(significand_b), shift_count));
+
+			if (comp_sig_b = '1') then
+				significand_b_out(mant_size downto (mant_size + 1 - shift_count)) <= (others => '1');
+			end if;
+
 			guard_bit <= significand_b(shift_count - 1);
 		end if;
 
