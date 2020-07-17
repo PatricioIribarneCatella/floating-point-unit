@@ -7,7 +7,7 @@ SUBCOMPONENT=$2
 
 if [[ "$SUBCOMPONENT" == "main" ]]; then
 	FILE=$3
-	./scripts/generate-tb.py $FILE
+	./scripts/generate-tb.py $COMPONENT $FILE
 fi
 
 ./scripts/compile $COMPONENT $SUBCOMPONENT
