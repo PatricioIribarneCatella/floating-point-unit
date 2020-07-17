@@ -40,22 +40,21 @@ begin
 		exp_b_val := to_integer(unsigned(exp_b));
 
 		if (exp_a_val < exp_b_val) then
-			sign_a_out <= sign_b;
-			sign_b_out <= sign_a;
 			exp_a_out <= exp_b;
 			exp_b_out <= exp_a;
 			significand_a_out <= '1' & mant_b;
 			significand_b_out <= '1' & mant_a;
 			swap <= '1';
 		else
-			sign_a_out <= sign_a;
-			sign_b_out <= sign_b;
 			exp_a_out <= exp_a;
 			exp_b_out <= exp_b;
 			significand_a_out <= '1' & mant_a;
 			significand_b_out <= '1' & mant_b;
 			swap <= '0';
 		end if;
+
+		sign_a_out <= sign_a;
+		sign_b_out <= sign_b;
 
 	end process swapper;
 
