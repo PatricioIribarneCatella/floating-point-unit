@@ -127,8 +127,6 @@ signal z_dut: unsigned(WORD_SIZE_T-1 downto 0)  := (others => '0');\n\
 signal ciclos: integer := 0;\n\
 signal errores: integer := 0;\n\
 \n\
-signal start_aux: std_logic := '1';\n\
-\n\
 signal z_del_aux: std_logic_vector(WORD_SIZE_T-1 downto 0) := (others => '0');\n\
 \n\
 file datos: text open read_mode is \"{}\";\n\
@@ -143,7 +141,6 @@ test_sequence: process\n\
 begin\n\
 \n\
         while not(endfile(datos)) loop\n\
-                start_aux <= '1';\n\
                 wait until rising_edge(clk);\n\
                 ciclos <= ciclos + 1;\n\
                 readline(datos, l);\n\
@@ -155,9 +152,6 @@ begin\n\
                 read(l, ch);\n\
                 read(l, aux);\n\
                 z_file <= to_unsigned(aux, WORD_SIZE_T);\n\
-                wait until rising_edge(clk);\n\
-                start_aux <= '0';\n\
-                wait for TCK * (DELAY + 2);\n\
         end loop;\n\
 \n\
         file_close(datos);\n\
@@ -176,7 +170,6 @@ DUT: entity work.main\n\
                 op_a => std_logic_vector(a_file),\n\
                 op_b => std_logic_vector(b_file),\n\
                 unsigned(res) => z_dut,\n\
-                start => start_aux,\n\
                 clk => clk\n\
         );\n\
 \n\
@@ -195,8 +188,7 @@ z_del <= unsigned(z_del_aux);\n\
 \n\
 verificacion: process\n\
 begin\n\
-        wait until rising_edge(start_aux);\n\
-        wait for TCK * (DELAY + 3);\n\
+        wait for TCK * (DELAY + 1);\n\
         assert to_integer(z_del) = to_integer(z_dut) report\n\
                 \"Error: Salida del DUT: \" & integer'image(to_integer(z_dut)) &\n\
                 \", salida del archivo = \" & integer'image(to_integer(z_del))\n\
