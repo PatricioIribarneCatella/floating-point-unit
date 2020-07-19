@@ -229,13 +229,15 @@ architecture fa_tb_arq of fa_tb is\n\
     signal expected : std_logic_vector(WORD_SIZE_TB - 1 downto 0)\n\
 					:= std_logic_vector(to_unsigned({}, WORD_SIZE_TB));\n\
     signal expected_aux : std_logic_vector(WORD_SIZE_TB - 1 downto 0);\n\
+    signal b_neg_aux : std_logic_vector(WORD_SIZE_TB - 1 downto 0);\n\
 \n\
     signal clk : std_logic := '1';\n\
-    signal verified : std_logic := '0';\n\
+    signal operation: std_logic := '{}';\n\
 \n\
 begin\n\
 \n\
     clk <= not(clk) after TCK / 2;\n\
+    b_neg_aux <= (b_aux(WORD_SIZE_TB - 1) xor operation) & b_aux(WORD_SIZE_TB - 2 downto 0);\n\
 \n\
     DUT: entity work.main\n\
     generic map (\n\
@@ -246,7 +248,8 @@ begin\n\
         op_a => a_aux,\n\
         op_b => b_aux,\n\
         res  => s_aux,\n\
-        clk  => clk\n\
+        clk  => clk,\n\
+        operation => operation\n\
     );\n\
 \n\
     DELAY_GEN: entity work.delay_gen\n\

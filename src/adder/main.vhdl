@@ -12,7 +12,8 @@ entity main is
         op_a  : in  std_logic_vector(word_size - 1 downto 0);
         op_b  : in  std_logic_vector(word_size - 1 downto 0);
         res   : out std_logic_vector(word_size - 1 downto 0);
-		clk   : in std_logic
+		clk   : in std_logic;
+		operation : in std_logic
     );
 end entity main;
 
@@ -134,7 +135,7 @@ architecture main_arq of main is
 
 begin
 
-	reg_0_in <= op_a & op_b;
+	reg_0_in <= op_a & (op_b(word_size - 1) xor operation) & op_b(word_size - 2 downto 0);
 
 	-- IN -> STEP-1
 	REG_0: entity work.register_pipe

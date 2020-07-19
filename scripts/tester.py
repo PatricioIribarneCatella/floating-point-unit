@@ -11,38 +11,46 @@ TESTBENCH_PATH = 'testbench/adder/fa_tb.vhdl'
 
 def parse_args():
 
-    test_file_name = sys.argv[1]
+    operation_str = sys.argv[1]
 
-    if len(sys.argv) < 3:
+    if operation_str not in ['add', 'sub']:
+        print("operation must be: `add` or `sub`")
+        sys.exit(1)
+    else:
+        operation = 0 if operation_str == "add" else 1
+
+    test_file_name = sys.argv[2]
+
+    if len(sys.argv) < 4:
         offset = 0
     else:
-        offset = int(sys.argv[2])
+        offset = int(sys.argv[3])
 
     _, mant_size_str, exp_size_str = test_file_name.split("_")
 
     mant_size = int(mant_size_str)
     exp_size = int(exp_size_str.split(".")[0])
 
-    return exp_size, mant_size, test_file_name, offset
+    return exp_size, mant_size, test_file_name, offset, operation
 
 def store_file(testbench):
 
     with open(TESTBENCH_PATH, 'w') as f:
         f.write(testbench)
 
-def generate_testbench(args, exp_size, mant_size):
+def generate_testbench(args, exp_size, mant_size, operation):
 
     a, b, expected = args
 
     word_size = 1 + exp_size + mant_size
 
-    testbench = TEMPLATE_ADD.format(word_size, exp_size, a, b, expected)
+    testbench = TEMPLATE_ADD.format(word_size, exp_size, a, b, expected, operation)
 
     return testbench
 
 def main():
 
-    exp_size, mant_size, test_file_name, offset = parse_args()
+    exp_size, mant_size, test_file_name, offset, operation = parse_args()
 
     # lectura del archivo
     with open(test_file_name) as f:
@@ -52,7 +60,7 @@ def main():
 
     for num, line in enumerate(lines[offset:]):
         # generar el archivo de testbench
-        testbench = generate_testbench(line, exp_size, mant_size)
+        testbench = generate_testbench(line, exp_size, mant_size, operation)
 
         # guardar el archivo
         store_file(testbench)
