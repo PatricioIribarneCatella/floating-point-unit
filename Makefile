@@ -13,7 +13,7 @@ clean:
 	rm -r $(SIMDIR)
 	rm -rf scripts/__pycache__
 	rm -f testbench/multiplier/main_tb.vhdl
-	rm -f testbench/adder/main_tb.vhdl
+	rm -f testbench/adder/fa_tb.vhdl
 
 lint:
 	python3 -m vsg --fix -c .vsg_config.json

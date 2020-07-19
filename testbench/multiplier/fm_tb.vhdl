@@ -7,13 +7,6 @@ end entity fm_tb;
 
 architecture fm_tb_arq of fm_tb is
 
-	-- Errors:
-	--	File: fmul_15_6.txt
-	--		A: 2534066 B: 2064383 res: 3582641 expected: 3609004
-	--		A: 2064383 B: 2618694 res: 3667269 expected: 3674602
-	--		A: 722076  B: 2416840 res: 2097152 expected: 2126960
-	--		A: 2064383 B: 873228  res: 1921803 expected: 1942471
-
     constant WORD_SIZE_TB : natural := 22;
     constant EXP_SIZE_TB  : natural := 6;
 
