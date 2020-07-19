@@ -246,28 +246,28 @@ begin\n\
         op_a => a_aux,\n\
         op_b => b_aux,\n\
         res  => s_aux,\n\
-                    clk  => clk\n\
+        clk  => clk\n\
     );\n\
 \n\
     DELAY_GEN: entity work.delay_gen\n\
     generic map(\n\
-            N => word_size_tb,\n\
-            DELAY => DELAY\n\
+        N => word_size_tb,\n\
+        DELAY => DELAY\n\
     )\n\
     port map(\n\
-            clk => clk,\n\
-            A => expected,\n\
-            B => expected_aux\n\
+        clk => clk,\n\
+        A => expected,\n\
+        B => expected_aux\n\
     );\n\
 \n\
     verificacion : process\n\
     begin\n\
     wait for TCK * (DELAY + 1);\n\
 \n\
-            assert to_integer(unsigned(expected_aux)) = to_integer(unsigned(s_aux)) report\n\
-                    \"Error: Salida del DUT: \" & integer'image(to_integer(unsigned(s_aux))) &\n\
-                    \", salida del archivo = \" & integer'image(to_integer(unsigned(expected_aux)))\n\
-                    severity failure;\n\
+        assert to_integer(unsigned(expected_aux)) = to_integer(unsigned(s_aux)) report\n\
+            \"Error: Salida del DUT: \" & integer'image(to_integer(unsigned(s_aux))) &\n\
+            \", salida del archivo = \" & integer'image(to_integer(unsigned(expected_aux)))\n\
+            severity failure;\n\
 \n\
     end process verificacion;\n\
 \n\
