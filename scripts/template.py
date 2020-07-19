@@ -262,7 +262,7 @@ begin\n\
 \n\
     verificacion : process\n\
     begin\n\
-    wait for TCK * (DELAY + 1);\n\
+        wait for TCK * (DELAY + 1);\n\
 \n\
         assert to_integer(unsigned(expected_aux)) = to_integer(unsigned(s_aux)) report\n\
             \"Error: Salida del DUT: \" & integer'image(to_integer(unsigned(s_aux))) &\n\
