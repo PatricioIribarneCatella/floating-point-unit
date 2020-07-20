@@ -5,11 +5,12 @@
 .vagrant/
 
 # Vivado output files and directories
-synth/floating-point.*
+synth/adder.*
+synth/multiplier.*
 
-# python output files
+# Python output files
 **/__pycache__/
 
 # Floating point generated testbench files
-testbench/multiplier/main_tb.vhdl
-testbench/adder/main_tb.vhdl
+testbench/multiplier/fm_tb.vhdl
+testbench/adder/fa_tb.vhdl
