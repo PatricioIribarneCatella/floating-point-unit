@@ -9,10 +9,9 @@ view:
 	gunzip --stdout $(SIMDIR)/$(SIMBIN).vcdgz | gtkwave --vcd &
 
 clean:
-	$(GHDLCMD) --clean --workdir=$(SIMDIR)
 	rm -r $(SIMDIR)
 	rm -rf scripts/__pycache__
-	rm -f testbench/multiplier/main_tb.vhdl
+	rm -f testbench/multiplier/fm_tb.vhdl
 	rm -f testbench/adder/fa_tb.vhdl
 
 lint:

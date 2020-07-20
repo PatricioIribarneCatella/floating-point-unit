@@ -1,23 +1,17 @@
 #!/usr/bin/env python3
 
 import sys
-from subprocess import Popen, DEVNULL, STDOUT
 
-from template import TEMPLATE_ADD
-
-BASH = "bash"
-SCRIPTS_DIR = "scripts/"
-TESTBENCH_PATH = 'testbench/adder/fa_tb.vhdl'
+from adder import run_adder
+from multiplier import run_multiplier
 
 def parse_args():
 
-    operation_str = sys.argv[1]
+    operation = sys.argv[1]
 
-    if operation_str not in ['add', 'sub']:
-        print("operation must be: `add` or `sub`")
+    if operation not in ['add', 'sub', 'mul']:
+        print("OPERATION must be: `add`, `sub` or `mul`")
         sys.exit(1)
-    else:
-        operation = 0 if operation_str == "add" else 1
 
     test_file_name = sys.argv[2]
 
@@ -31,56 +25,27 @@ def parse_args():
     mant_size = int(mant_size_str)
     exp_size = int(exp_size_str.split(".")[0])
 
-    return exp_size, mant_size, test_file_name, offset, operation
-
-def store_file(testbench):
-
-    with open(TESTBENCH_PATH, 'w') as f:
-        f.write(testbench)
-
-def generate_testbench(args, exp_size, mant_size, operation):
-
-    a, b, expected = args
-
-    word_size = 1 + exp_size + mant_size
-
-    testbench = TEMPLATE_ADD.format(word_size, exp_size, a, b, expected, operation)
-
-    return testbench
+    return exp_size, mant_size, operation, test_file_name, offset
 
 def main():
 
-    exp_size, mant_size, test_file_name, offset, operation = parse_args()
+    exp_size, mant_size, operation, test_file_name, offset = parse_args()
 
-    # lectura del archivo
-    with open(test_file_name) as f:
-        lines = f.readlines()
-    
-    lines = list(map(lambda line: line.strip().split(' '), lines))
-
-    for num, line in enumerate(lines[offset:]):
-        # generar el archivo de testbench
-        testbench = generate_testbench(line, exp_size, mant_size, operation)
-
-        # guardar el archivo
-        store_file(testbench)
-
-        # compilar el testbench
-        p = Popen([BASH,
-                   SCRIPTS_DIR + "compile-fa"])
-        p.wait()
-
-        # correr la simulacion con subprocess
-        p = Popen([BASH,
-                   SCRIPTS_DIR + "simul-fa"], stderr=STDOUT, stdout=DEVNULL)
-        p.wait()
-        
-        if p.returncode > 0:
-            print("L: {} - a: {}, b: {}, expected: {} - ERROR".format(num + offset, line[0], line[1], line[2]))
-            sys.exit(0)
-        else:
-            print("L: {} - a: {}, b: {}, expected: {} - OK".format(num + offset, line[0], line[1], line[2]))
-
+    if operation in ['add', 'sub']:
+        run_adder(exp_size, mant_size, operation, test_file_name, offset)
+    else:
+        run_multiplier(exp_size, mant_size, test_file_name)
 
 if __name__ == '__main__':
+
+    if len(sys.argv) < 3:
+        print("""
+        Usage: ./tester.py OPERATION TEST_FILE [LINE]
+        \tOPERATION: it could be `add`, `sub` or `mul`
+        \tTEST_FILE: the file containing the inputs and expected outputs
+        \tLINE: the line in test file to begin the simulation (available for add/sub, not mult)
+        \t\tdefault: 0
+        """)
+        sys.exit(1)
+
     main()

@@ -5,10 +5,5 @@ set -eu
 COMPONENT=$1
 SUBCOMPONENT=$2
 
-if [[ "$SUBCOMPONENT" == "main" ]]; then
-	FILE=$3
-	./scripts/generate-tb.py $COMPONENT $FILE
-fi
-
 ./scripts/compile $COMPONENT $SUBCOMPONENT
 ./scripts/simul $SUBCOMPONENT

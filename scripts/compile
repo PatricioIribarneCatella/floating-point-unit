@@ -8,10 +8,7 @@ GHDLFLAGS="--ieee=standard -fsynopsys --warn-no-vital-generic --workdir=$SIMDIR"
 COMPONENT=$1
 SUBCOMPONENT=$2
 
-if [[ "$SUBCOMPONENT" == "main" ]]; then
-	UTILS="src/$COMPONENT/utils.vhdl testbench/utils/*"
-	SRCFILES="src/$COMPONENT/* src/result_builder.vhdl"
-elif [[ "$SUBCOMPONENT" == "step_5_shift_sig_res" ]]; then
+if [[ "$SUBCOMPONENT" == "step_5_shift_sig_res" ]]; then
 	UTILS="src/$COMPONENT/utils.vhdl"
 	SRCFILES="src/$COMPONENT/$SUBCOMPONENT.vhdl"
 elif [[ "$SUBCOMPONENT" == "step_8_calc_sign" ]]; then

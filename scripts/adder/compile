@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -eu
+
+SIMDIR="simul"
+GHDLFLAGS="--ieee=standard -fsynopsys --warn-no-vital-generic --workdir=$SIMDIR"
+
+COMPONENT="adder"
+
+UTILS="src/$COMPONENT/utils.vhdl testbench/utils/*"
+SRCFILES="src/$COMPONENT/* src/result_builder.vhdl"
+
+mkdir -p $SIMDIR
+ghdl -i $GHDLFLAGS --work=work testbench/$COMPONENT/"fa_tb.vhdl" $UTILS $SRCFILES
+ghdl -m $GHDLFLAGS --work=work "fa_tb"
