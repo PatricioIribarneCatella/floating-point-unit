@@ -10,13 +10,26 @@ You can install [GHDL](https://ghdl.readthedocs.io/en/latest/), [GTKWave](http:/
 
 ### Run
 
+```bash
+$ ./scripts/tester.py OPERATION TEST_FILE [LINE]
+
+	OPERATION: it could be `add`, `sub` or `mul`
+	TEST_FILE: the file containing the inputs and expected outputs
+	LINE: the line in test file to begin the simulation (available for add/sub, not mul)
+		default: 0
+```
+
+## Subcomponents
+
+### Run
+
 It runs the simulation using [GHDL](https://ghdl.readthedocs.io/en/latest/).
 
 ```bash
 $ ./scripts/run COMPONENT_NAME SUBCOMPONENT_NAME [TEST_FILE]
 ```
 
-Where `COMPONENT_NAME` can be one of _multiplier_ or _adder_. Then the `SUBCOMPONENT_NAME` can be one of the sub-components that the previous ones use to work. The `TEST_FILE` is only used when the sub-component is _main_ indicating that the test files located in `testbench` folder are going to be used.
+Where `COMPONENT_NAME` can be one of _multiplier_ or _adder_. Then the `SUBCOMPONENT_NAME` can be one of the sub-components that the previous ones use to work. 
 
 ### Compile
 

@@ -43,7 +43,7 @@ if __name__ == '__main__':
         Usage: ./tester.py OPERATION TEST_FILE [LINE]
         \tOPERATION: it could be `add`, `sub` or `mul`
         \tTEST_FILE: the file containing the inputs and expected outputs
-        \tLINE: the line in test file to begin the simulation (available for add/sub, not mult)
+        \tLINE: the line in test file to begin the simulation (available for add/sub, not mul)
         \t\tdefault: 0
         """)
         sys.exit(1)
